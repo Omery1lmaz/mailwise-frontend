@@ -5,6 +5,8 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import InboxIcon from '@mui/icons-material/Inbox';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import GroupIcon from '@mui/icons-material/Group';
 import dayjs from 'dayjs';
 
 const AVATAR_COLORS = ['#1976d2', '#00C49F', '#FFBB28', '#FF8042', '#A020F0'];
@@ -17,6 +19,8 @@ function stringToColor(str) {
     return color;
 }
 
+// Masking helpers
+
 export default function ProcessingEmails({ token }) {
     const [emails, setEmails] = useState([]);
     const [page, setPage] = useState(0);
@@ -25,10 +29,15 @@ export default function ProcessingEmails({ token }) {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Ortalama gönderim süresi (örnek: 45 saniye)
+    const AVG_SEND_SEC = 45;
+    const estimatedTotalSec = total * AVG_SEND_SEC;
+    const estimatedFinish = new Date(Date.now() + estimatedTotalSec * 1000);
+
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
-            const res = await getProcessingEmails( page + 1, rowsPerPage);
+            const res = await getProcessingEmails(page + 1, rowsPerPage);
             setEmails(res.data.emails);
             setTotal(res.data.total);
             setLoading(false);
@@ -57,6 +66,24 @@ export default function ProcessingEmails({ token }) {
             <Box sx={{ maxWidth: 1200, mx: 'auto', px: 2 }}>
                 <Typography variant="h5" fontWeight={700} mb={0.5} color="#222">Processing Emails</Typography>
                 <Typography variant="body1" color="#888" mb={3}>Emails currently being processed for sending.</Typography>
+                {/* Summary Bar */}
+                <Paper elevation={1} sx={{ display: 'flex', alignItems: 'center', gap: 4, p: 2, mb: 3, borderRadius: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(30,34,40,0.04)' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <GroupIcon color="primary" />
+                        <Typography fontWeight={600} fontSize={15} color="#1976d2">Toplam:</Typography>
+                        <Typography fontWeight={700} fontSize={18} color="#222">{total}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <AccessTimeIcon color="warning" />
+                        <Typography fontWeight={600} fontSize={15} color="#FFBB28">Ortalama Süre:</Typography>
+                        <Typography fontWeight={700} fontSize={18} color="#222">{AVG_SEND_SEC} sn</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <AccessTimeIcon color="success" />
+                        <Typography fontWeight={600} fontSize={15} color="#00C49F">Tahmini Bitiş:</Typography>
+                        <Typography fontWeight={700} fontSize={18} color="#222">{estimatedFinish.toLocaleTimeString('tr-TR')}</Typography>
+                    </Box>
+                </Paper>
                 {/* Search Bar */}
                 <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: '#fff', borderRadius: 2, px: 2, py: 1, mb: 2, boxShadow: '0 1px 4px 0 rgba(30,34,40,0.04)', maxWidth: 340 }}>
                     <SearchIcon sx={{ color: '#b0b3b9', fontSize: 20, mr: 1 }} />
@@ -116,7 +143,7 @@ export default function ProcessingEmails({ token }) {
                                             </TableCell>
                                             <TableCell sx={{ py: 1.5 }}>
                                                 <Chip
-                                                onClick={() => {}}
+                                                    onClick={() => { }}
                                                     label={row.isProcessing ? 'Processing' : 'Idle'}
                                                     size="small"
                                                     sx={{ bgcolor: row.isProcessing ? '#e3f2fd' : '#f5f6fa', color: row.isProcessing ? '#1976d2' : '#888', fontWeight: 700 }}

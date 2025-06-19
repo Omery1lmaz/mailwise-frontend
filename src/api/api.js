@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// const API_URL = 'https://mailwise-server.onrender.com';
 const API_URL = 'http://localhost:3000';
 
 const api = axios.create({
@@ -15,8 +16,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const login = (email, password) =>
-  api.post('/admin/login', { email, password });
+export const login = (email, password, role) =>
+  role === 'user'
+    ? api.post('/user/login', { email, password })
+    : api.post('/admin/login', { email, password });
 
 export const getQueueEmails = (page = 1, limit = 20) =>
   api.get(`/admin/queue-emails?page=${page}&limit=${limit}`);
@@ -42,4 +45,19 @@ export const uploadCsv = (file) => {
 };
 
 export const sendBatch = () =>
-  api.post('/queue/send-batch'); 
+  api.post('/queue/send-batch');
+
+export const getRecentEmails = () =>
+  api.get('/admin/recent-emails');
+
+export const getTopCompanies = () =>
+  api.get('/admin/top-companies');
+
+export const sendQueueEmail = (id) =>
+  api.post(`/queue/send/${id}`);
+
+export const removeQueueEmail = (id) =>
+  api.delete(`/queue/${id}`);
+
+export const exportQueueEmails = () =>
+  api.get('/queue/export', { responseType: 'blob' }); 

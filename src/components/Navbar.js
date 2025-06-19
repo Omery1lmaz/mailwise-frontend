@@ -1,12 +1,27 @@
-import React from 'react';
-import { Box, InputBase, IconButton, Badge, Avatar, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, IconButton, Badge, Avatar, Typography, Menu, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const SIDEBAR_WIDTH = 220;
 
-export default function Navbar() {
+export default function Navbar({ onLogout }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+    const handleLogout = () => {
+        handleMenuClose();
+        if (onLogout) onLogout();
+    };
+
     return (
         <Box sx={{
             width: `calc(100% - ${SIDEBAR_WIDTH}px)`,
@@ -29,14 +44,27 @@ export default function Navbar() {
                         <NotificationsNoneOutlinedIcon fontSize="medium" />
                     </Badge>
                 </IconButton>
-                <Box sx={{ display: 'flex', alignItems: 'center', bgcolor: '#f5f6fa', borderRadius: 2, px: 2, py: 0.5, minWidth: 120, cursor: 'pointer' }}>
-                    <Avatar src="https://randomuser.me/api/portraits/men/32.jpg" sx={{ width: 32, height: 32, mr: 1 }} />
+                <Box
+                    sx={{ display: 'flex', alignItems: 'center', bgcolor: '#f5f6fa', borderRadius: 2, px: 2, py: 0.5, minWidth: 140, cursor: 'pointer' }}
+                    onClick={handleMenuOpen}
+                >
+                    <AccountCircleIcon sx={{ width: 32, height: 32, mr: 1, color: '#1976d2' }} />
                     <Box sx={{ mr: 1 }}>
-                        <Typography fontWeight={700} fontSize={15} color="#222">Joxy Inc.</Typography>
-                        <Typography fontSize={12} color="#b0b3b9">Brand</Typography>
+                        <Typography fontWeight={700} fontSize={15} color="#222">Ömer Faruk</Typography>
+                        <Typography fontSize={12} color="#FFBB28" fontWeight={700}>admin</Typography>
                     </Box>
                     <ArrowDropDownIcon sx={{ color: '#b0b3b9' }} />
                 </Box>
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    PaperProps={{ sx: { mt: 1, minWidth: 140, borderRadius: 2 } }}
+                >
+                    <MenuItem onClick={handleLogout} sx={{ color: '#d32f2f', fontWeight: 700 }}>Logout</MenuItem>
+                </Menu>
             </Box>
         </Box>
     );
