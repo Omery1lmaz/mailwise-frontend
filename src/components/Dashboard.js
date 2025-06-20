@@ -227,20 +227,24 @@ export default function Dashboard() {
             <Typography color="#b0b3b9">Son aktivite bulunamadı.</Typography>
           ) : (
             <List>
-              {recentEmails.map((email, idx) => (
-                <ListItem key={email._id || idx} sx={{ px: 0 }}>
-                  <ListItemIcon>
-                    <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>{email.to?.[0]?.toUpperCase() || '?'}</Avatar>
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={<>
-                      <Typography fontWeight={600} fontSize={15}>{email.to}</Typography>
-                      <Typography fontSize={13} color="#888">{email.subject}</Typography>
-                    </>}
-                    secondary={<Typography fontSize={12} color="#b0b3b9">{new Date(email.sentAt).toLocaleString('tr-TR')}</Typography>}
-                  />
-                </ListItem>
-              ))}
+              {recentEmails.map((email, idx) => {
+                const data = JSON.parse(JSON.stringify(email))
+                console.log(typeof email, "email")
+                return (
+                  <ListItem key={data._id || idx} sx={{ px: 0 }}>
+                    <ListItemIcon>
+                      <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>{data.email?.[0]?.toUpperCase() || '?'}</Avatar>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={<>
+                        <Typography fontWeight={600} fontSize={15}>{data.email}</Typography>
+                        <Typography fontSize={13} color="#888">{data.subject}</Typography>
+                      </>}
+                      secondary={<Typography fontSize={12} color="#b0b3b9">{new Date(data.sentAt).toLocaleString('tr-TR')}</Typography>}
+                    />
+                  </ListItem>
+                )
+              })}
             </List>
           )}
         </Paper>
