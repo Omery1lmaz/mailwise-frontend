@@ -86,6 +86,10 @@ export default function Sidebar({ role }) {
                                     <ListItemIcon sx={{ minWidth: 36 }}><SendIcon /></ListItemIcon>
                                     <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Batch Send</Typography>} />
                                 </ListItem>
+                                <ListItem button selected={location.pathname === '/inbox'} onClick={() => navigate('/inbox')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
+                                    <ListItemIcon sx={{ minWidth: 36 }}><EmailIcon color="primary" /></ListItemIcon>
+                                    <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Gelen Kutusu</Typography>} />
+                                </ListItem>
                               </>
                             )}
                         </List>

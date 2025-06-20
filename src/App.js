@@ -15,6 +15,7 @@ import Documentation from './components/Documentation';
 import Settings from './components/Settings';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Inbox from './components/Inbox';
 
 const SIDEBAR_WIDTH = 220;
 
@@ -52,6 +53,7 @@ function AppRoutes({ token, setToken, role, setRole }) {
             {role === 'admin' && <Route path="/upload" element={<PrivateRoute><CsvUpload token={token} /></PrivateRoute>} />}
             {role === 'admin' && <Route path="/batch" element={<PrivateRoute><BatchSend token={token} /></PrivateRoute>} />}
             {role === 'admin' && <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />}
+            {role === 'admin' && <Route path="/inbox" element={<PrivateRoute><Inbox /></PrivateRoute>} />}
             <Route path="/documentation" element={<Documentation />} />
             <Route path="*" element={<Navigate to={token ? "/dashboard" : "/login"} />} />
           </Routes>

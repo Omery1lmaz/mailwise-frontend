@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // const API_URL = 'https://mailwise-server.onrender.com';
-// const API_URL = 'http://localhost:3000';
-const API_URL = 'https://mailwise-server-f9lj.vercel.app';
+const API_URL = 'http://localhost:3000';
+// const API_URL = 'https://mailwise-server-f9lj.vercel.app';
 
 
 const api = axios.create({
@@ -26,6 +26,10 @@ export const login = (email, password, role) =>
 export const getQueueEmails = (page = 1, limit = 20) =>
   api.get(`/admin/queue-emails?page=${page}&limit=${limit}`);
 
+export const getInbox = (page = 1, limit = 20) =>
+  api.get(`/admin/inbox?page=${page}&limit=${limit}`);
+export const fetchInboxApi = () =>
+  api.post('/admin/fetch-inbox');
 export const getProcessingEmails = (page = 1, limit = 20) =>
   api.get(`/admin/processing-emails?page=${page}&limit=${limit}`);
 
