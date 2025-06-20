@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // const API_URL = 'https://mailwise-server.onrender.com';
-const API_URL = 'http://localhost:3000';
-// const API_URL = 'https://mailwise-server-f9lj.vercel.app';
+// const API_URL = 'http://localhost:3000';
+const API_URL = 'https://mailwise-server-f9lj.vercel.app';
 
 
 const api = axios.create({
