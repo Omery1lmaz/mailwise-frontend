@@ -4,6 +4,7 @@ import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Login from './components/Login';
+import AdminLogin from './components/AdminLogin';
 import Dashboard from './components/Dashboard';
 import QueueEmails from './components/QueueEmails';
 import ProcessingEmails from './components/ProcessingEmails';
@@ -43,6 +44,7 @@ function AppRoutes({ token, setToken, role, setRole }) {
         <Box sx={{ flex: 1, pt: token ? '56px' : 0 }}>
           <Routes>
             <Route path="/login" element={<Login onLogin={(t, r) => { setToken(t); setRole(r); localStorage.setItem('role', r); }} />} />
+            <Route path="/admin-login" element={<AdminLogin onLogin={(t, r) => { setToken(t); setRole(r); localStorage.setItem('role', r); }} />} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard token={token} /></PrivateRoute>} />
             <Route path="/queue" element={<PrivateRoute><QueueEmails token={token} /></PrivateRoute>} />
             <Route path="/processing" element={<PrivateRoute><ProcessingEmails token={token} /></PrivateRoute>} />

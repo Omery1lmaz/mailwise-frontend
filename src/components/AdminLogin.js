@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { login } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box, Alert, CircularProgress, Paper, Avatar, InputAdornment, IconButton } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import EmailIcon from '@mui/icons-material/Email';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-export default function Login({ onLogin }) {
+export default function AdminLogin({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,13 +20,13 @@ export default function Login({ onLogin }) {
     setError('');
     setLoading(true);
     try {
-      const res = await login(email, password, 'user'); // always user login
+      const res = await login(email, password, 'admin'); // always admin login
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('role', 'user');
-      if (onLogin) onLogin(res.data.token, 'user');
+      localStorage.setItem('role', 'admin');
+      if (onLogin) onLogin(res.data.token, 'admin');
       navigate('/dashboard');
     } catch (err) {
-      setError('Giriş başarısız!');
+      setError('Admin girişi başarısız!');
     }
     setLoading(false);
   };
@@ -34,19 +34,19 @@ export default function Login({ onLogin }) {
   return (
     <Box sx={{ bgcolor: '#f7f8fa', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Container maxWidth="xs">
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 4, boxShadow: '0 2px 16px 0 rgba(30,34,40,0.08)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Avatar sx={{ bgcolor: '#1976d2', width: 64, height: 64, mb: 2 }}>
-            <LockOutlinedIcon sx={{ fontSize: 36 }} />
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 4, boxShadow: '0 2px 16px 0 rgba(30,34,40,0.10)', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '2px solid #1976d2' }}>
+          <Avatar sx={{ bgcolor: '#fff', border: '2px solid #1976d2', width: 64, height: 64, mb: 2 }}>
+            <AdminPanelSettingsIcon sx={{ fontSize: 36, color: '#1976d2' }} />
           </Avatar>
           <Typography variant="h4" fontWeight={700} color="#1976d2" mb={1} align="center">
-            Mailwise Giriş
+            Admin Girişi
           </Typography>
           <Typography variant="body1" color="#888" mb={3} align="center">
-            Kişisel panelinize erişmek için giriş yapın.
+            Yönetim paneline erişmek için admin hesabınızla giriş yapın.
           </Typography>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <TextField
-              label="Email"
+              label="Admin Email"
               type="email"
               fullWidth
               margin="normal"
@@ -89,13 +89,13 @@ export default function Login({ onLogin }) {
               disabled={loading}
               startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
             >
-              {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
+              {loading ? 'Giriş Yapılıyor...' : 'Admin Girişi'}
             </Button>
           </form>
         </Paper>
         <Box sx={{ mt: 4, textAlign: 'center', color: '#b0b3b9', fontSize: 14 }}>
           <Typography variant="body2" color="#b0b3b9">
-            © {new Date().getFullYear()} Mailwise. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} Mailwise Admin. Tüm hakları saklıdır.
           </Typography>
         </Box>
       </Container>
