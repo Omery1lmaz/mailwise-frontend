@@ -19,7 +19,7 @@ export default function CsvUpload({ token }) {
         setSuccess('');
         setError('');
         if (!file) {
-            setError('Lütfen bir dosya seçin!');
+            setError('Please select a file!');
             return;
         }
         setLoading(true);
@@ -28,7 +28,7 @@ export default function CsvUpload({ token }) {
             setSuccess(res.data.message + ` (${res.data.count})`);
             setFile(null);
         } catch (err) {
-            setError('Yükleme başarısız!');
+            setError('Upload failed!');
         }
         setLoading(false);
     };
@@ -36,11 +36,11 @@ export default function CsvUpload({ token }) {
     return (
         <Container maxWidth="sm">
             <Box mt={4}>
-                <Typography variant="h6">CSV Dosyası Yükle</Typography>
+                <Typography variant="h6">Upload CSV File</Typography>
                 <form onSubmit={handleSubmit}>
                     <input type="file" accept=".csv" onChange={handleFileChange} />
                     <Button type="submit" variant="contained" color="primary" sx={{ ml: 2 }} disabled={loading}>
-                        Yükle
+                        Upload
                     </Button>
                 </form>
                 {loading && <LinearProgress sx={{ mt: 2 }} />}

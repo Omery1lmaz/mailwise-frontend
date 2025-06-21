@@ -66,31 +66,31 @@ export default function Sidebar({ role }) {
                         <List disablePadding>
                             <ListItem button selected={location.pathname === '/queue'} onClick={() => navigate('/queue')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
                                 <ListItemIcon sx={{ minWidth: 36 }}><EmailIcon /></ListItemIcon>
-                                <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Queue</Typography>} />
+                                <ListItemText primary={<Typography fontWeight={600} fontSize={15}>All Emails</Typography>} />
                             </ListItem>
                             <ListItem button selected={location.pathname === '/processing'} onClick={() => navigate('/processing')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
                                 <ListItemIcon sx={{ minWidth: 36 }}><ScheduleIcon /></ListItemIcon>
                                 <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Processing</Typography>} />
                             </ListItem>
                             <ListItem button selected={location.pathname === '/not-sended'} onClick={() => navigate('/not-sended')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
-                                <ListItemIcon sx={{ minWidth: 36 }}><ErrorOutlineIcon /></ListItemIcon>
-                                <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Not Sended</Typography>} />
+                                <ListItemIcon sx={{ minWidth: 36 }}><ScheduleIcon /></ListItemIcon>
+                                <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Queued</Typography>} />
                             </ListItem>
                             {role === 'admin' && (
-                              <>
-                                <ListItem button selected={location.pathname === '/upload'} onClick={() => navigate('/upload')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
-                                    <ListItemIcon sx={{ minWidth: 36 }}><CloudUploadIcon /></ListItemIcon>
-                                    <ListItemText primary={<Typography fontWeight={600} fontSize={15}>CSV Upload</Typography>} />
-                                </ListItem>
-                                <ListItem button selected={location.pathname === '/batch'} onClick={() => navigate('/batch')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
-                                    <ListItemIcon sx={{ minWidth: 36 }}><SendIcon /></ListItemIcon>
-                                    <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Batch Send</Typography>} />
-                                </ListItem>
-                                <ListItem button selected={location.pathname === '/inbox'} onClick={() => navigate('/inbox')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
-                                    <ListItemIcon sx={{ minWidth: 36 }}><EmailIcon color="primary" /></ListItemIcon>
-                                    <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Gelen Kutusu</Typography>} />
-                                </ListItem>
-                              </>
+                                <>
+                                    <ListItem button selected={location.pathname === '/upload'} onClick={() => navigate('/upload')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
+                                        <ListItemIcon sx={{ minWidth: 36 }}><CloudUploadIcon /></ListItemIcon>
+                                        <ListItemText primary={<Typography fontWeight={600} fontSize={15}>CSV Upload</Typography>} />
+                                    </ListItem>
+                                    <ListItem button selected={location.pathname === '/batch'} onClick={() => navigate('/batch')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
+                                        <ListItemIcon sx={{ minWidth: 36 }}><SendIcon /></ListItemIcon>
+                                        <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Batch Send</Typography>} />
+                                    </ListItem>
+                                    <ListItem button selected={location.pathname === '/inbox'} onClick={() => navigate('/inbox')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
+                                        <ListItemIcon sx={{ minWidth: 36 }}><EmailIcon color="primary" /></ListItemIcon>
+                                        <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Inbox</Typography>} />
+                                    </ListItem>
+                                </>
                             )}
                         </List>
                     </Box>
@@ -102,10 +102,10 @@ export default function Sidebar({ role }) {
                                 <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Documentation</Typography>} />
                             </ListItem>
                             {role === 'admin' && (
-                              <ListItem button selected={location.pathname === '/settings'} onClick={() => navigate('/settings')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
-                                  <ListItemIcon sx={{ minWidth: 36 }}><SettingsIcon color="primary" /></ListItemIcon>
-                                  <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Settings</Typography>} />
-                              </ListItem>
+                                <ListItem button selected={location.pathname === '/settings'} onClick={() => navigate('/settings')} sx={{ borderRadius: 2, mb: 1, pl: 2, py: 1.2, '&.Mui-selected': { bgcolor: '#f0f6ff', fontWeight: 700 }, '&:hover': { bgcolor: '#f0f6ff', fontWeight: 700 } }}>
+                                    <ListItemIcon sx={{ minWidth: 36 }}><SettingsIcon color="primary" /></ListItemIcon>
+                                    <ListItemText primary={<Typography fontWeight={600} fontSize={15}>Settings</Typography>} />
+                                </ListItem>
                             )}
                         </List>
                     </Box>
@@ -115,16 +115,16 @@ export default function Sidebar({ role }) {
                 <DialogTitle>Project Documentation</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <b>Mailwise</b> projesi, <b>iş başvurusu</b> için full-stack yeteneklerimi göstermek amacıyla geliştirilmiştir.<br /><br />
-                        <b>Amacı:</b> E-posta gönderim süreçlerini yönetmek, toplu mail atmak ve gönderim istatistiklerini modern bir dashboard üzerinden sunmak.<br /><br />
-                        <b>Veri Kaynağı:</b> Kişi ve şirket verileri, <b>CSV dosyası</b> olarak dışarıdan yüklenmekte ve MongoDB'de saklanmaktadır. Tüm dashboard ve istatistikler gerçek API'dan canlı olarak çekilmektedir.<br /><br />
-                        <b>Teknolojiler:</b> React (frontend), Node.js/Express (backend), MongoDB, Material UI, Recharts, JWT authentication.<br /><br />
-                        <b>Neden?</b> Bu proje, modern bir SaaS dashboard mimarisi, gerçek zamanlı veri yönetimi ve profesyonel UI/UX tasarımı konularındaki yetkinliğimi göstermek için hazırlanmıştır. Kodun tamamı bana aittir ve iş ilanı için özel olarak geliştirilmiştir.<br /><br />
-                        <b>Not:</b> Tüm kod, API ve arayüzler %100 gerçektir, mock veri kullanılmamıştır. <br />
+                        The <b>Mailwise</b> project was developed to demonstrate my full-stack skills for a <b>job application</b>.<br /><br />
+                        <b>Purpose:</b> To manage email sending processes, send bulk emails, and present sending statistics on a modern dashboard.<br /><br />
+                        <b>Data Source:</b> Person and company data are uploaded from an external <b>CSV file</b> and stored in MongoDB. All dashboard and statistics are fetched live from a real API.<br /><br />
+                        <b>Technologies:</b> React (frontend), Node.js/Express (backend), MongoDB, Material UI, Recharts, JWT authentication.<br /><br />
+                        <b>Why?</b> This project was prepared to demonstrate my competence in modern SaaS dashboard architecture, real-time data management, and professional UI/UX design. The entire code is my own and was developed specifically for the job posting.<br /><br />
+                        <b>Note:</b> All code, APIs, and interfaces are 100% real; no mock data was used.<br />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDocClose} color="primary" variant="contained">Kapat</Button>
+                    <Button onClick={handleDocClose} color="primary" variant="contained">Close</Button>
                 </DialogActions>
             </Dialog>
         </>

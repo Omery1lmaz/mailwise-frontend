@@ -19,6 +19,7 @@ import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import Button from '@mui/material/Button';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 const drawerWidth = 220;
 const COLORS = ['#1976d2', '#00C49F', '#FFBB28', '#FF8042', '#A020F0', '#FF69B4', '#00CED1', '#FFA07A'];
@@ -27,7 +28,7 @@ const cardData = [
   { label: 'Total Emails', icon: <MailOutlineIcon fontSize="medium" color="primary" />, color: '#1976d2' },
   { label: 'Sent', icon: <SendOutlinedIcon fontSize="medium" color="success" />, color: '#00C49F' },
   { label: 'Processing', icon: <HourglassEmptyOutlinedIcon fontSize="medium" color="warning" />, color: '#FFBB28' },
-  { label: 'Not Sent', icon: <ErrorOutlineOutlinedIcon fontSize="medium" color="error" />, color: '#FF8042' },
+  { label: 'Queued', icon: <ScheduleIcon fontSize="medium" color="info" />, color: '#0288d1' },
 ];
 
 // Masking helpers
@@ -78,7 +79,7 @@ export default function Dashboard() {
         setRecentEmails(recent.data.emails);
         setTopCompanies(companies.data.companies);
       } catch (error) {
-        console.error('Dashboard veri çekme hatası:', error);
+        console.error('Error fetching dashboard data:', error);
       } finally {
         setLoading(false);
       }
@@ -98,7 +99,7 @@ export default function Dashboard() {
             onClose={handleCloseBanner}
             sx={{ bgcolor: '#fffbe6', mt: 5, color: '#ad8b00', border: '1px solid #ffe58f', borderRadius: 2, mb: 3, fontWeight: 500, justifyContent: 'center', textAlign: 'center' }}
           >
-            💡 Bu projede bazı eksikliklerin farkındayım. Ancak bu çalışma, ticari bir ürün olmaktan ziyade yazılım alanındaki bilgi birikimimi ve kişisel çabamı yansıtan bir örnektir.
+            💡 I am aware of some shortcomings in this project. However, this work is not a commercial product but rather an example reflecting my knowledge and personal effort in the software field.
           </Alert>
         )}
       </Container>
@@ -119,7 +120,7 @@ export default function Dashboard() {
               rel="noopener"
               sx={{ fontWeight: 700, borderRadius: 2, boxShadow: '0 2px 8px 0 rgba(25,118,210,0.08)' }}
             >
-              CV'mi Gör
+              View My CV
             </Button>
           </Box>
           {/* Modern Processing Progress Card */}
@@ -134,7 +135,7 @@ export default function Dashboard() {
                 <Typography fontWeight={600} fontSize={18} color="#222" mt={0.5}>
                   {stats.processing} <span style={{ color: '#888', fontWeight: 500 }}>/ {stats.total}</span>
                 </Typography>
-                <Typography fontSize={15} color="#b0b3b9" fontWeight={500} mt={0.5}>Yükleniyor...</Typography>
+                <Typography fontSize={15} color="#b0b3b9" fontWeight={500} mt={0.5}>Loading...</Typography>
               </Box>
             </Box>
             <Box sx={{ flex: 2, width: '100%' }}>
@@ -159,10 +160,10 @@ export default function Dashboard() {
               const value = [stats.total, stats.sent, stats.processing, stats.notSended][idx];
               // Tooltip text for each card
               const tooltips = [
-                'Toplam e-posta sayısı (kuyruk + gönderilen + başarısız)',
-                'Başarıyla gönderilen e-posta sayısı',
-                'Şu anda toplu olarak gönderilen (batch) e-posta sayısı',
-                'Henüz gönderilemeyen e-posta sayısı'
+                'The total number of emails in the system.',
+                'The number of emails that have been successfully sent.',
+                'The number of emails currently being processed for sending.',
+                'The number of emails that are queued and waiting to be sent.'
               ];
               return (
                 <Grid item xs={12} sm={6} md={3} flex={1} key={item.label}>
@@ -197,7 +198,7 @@ export default function Dashboard() {
                     {item.label === 'Processing' && !loading && (
                       <Box sx={{ display: 'flex', alignItems: 'center', mt: 0.5 }}>
                         <Typography color="warning.main" variant="body2">Batch running</Typography>
-                        <Tooltip title="Batch: Kuyruktaki e-postalar toplu olarak arka planda gönderiliyor." placement="top" arrow>
+                        <Tooltip title="Batch: Queued emails are being sent in the background in batches." placement="top" arrow>
                           <IconButton size="small" sx={{ ml: 0.5, color: '#FFBB28' }}>
                             <InfoOutlinedIcon fontSize="small" />
                           </IconButton>
@@ -226,7 +227,7 @@ export default function Dashboard() {
               }}>
                 <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', mb: 1 }}>
                   <SendOutlinedIcon fontSize="medium" color="success" />
-                  <Typography fontWeight={600} fontSize={15} color="#388e3c" ml={1}>Success Rate</Typography>
+                  <Typography fontWeight={600} fontSize={15} color="#388e3c" ml={1}>Completion Rate</Typography>
                 </Box>
                 {loading ? (
                   <Skeleton variant="text" width={60} height={36} sx={{ my: 1 }} />
@@ -235,7 +236,7 @@ export default function Dashboard() {
                     {stats.total > 0 ? `${Math.round((stats.sent / stats.total) * 100)}%` : '0%'}
                   </Typography>
                 )}
-                <Typography variant="body2" color="#388e3c" mt={0.5}>Sent / Total</Typography>
+                <Typography variant="body2" color="#388e3c" mt={0.5}>Sent vs. Total</Typography>
               </Paper>
             </Grid>
           </Grid>
@@ -245,25 +246,40 @@ export default function Dashboard() {
             {loading ? (
               <Skeleton variant="rectangular" width="100%" height={60} />
             ) : recentEmails.length === 0 ? (
-              <Typography color="#b0b3b9">Son aktivite bulunamadı.</Typography>
+              <Typography color="#b0b3b9">No recent activity found.</Typography>
             ) : (
               <List>
-                {recentEmails.map((email, idx) => {
-                  const data = JSON.parse(JSON.stringify(email))
-                  console.log(typeof email, "email")
+                {recentEmails.map((email, index) => {
+                  console.log(email, "email")
                   return (
-                    <ListItem key={data._id || idx} sx={{ px: 0 }}>
-                      <ListItemIcon>
-                        <Avatar sx={{ bgcolor: '#1976d2', width: 32, height: 32 }}>{data.email?.[0]?.toUpperCase() || '?'}</Avatar>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={<>
-                          <Typography fontWeight={600} fontSize={15}>{data.email}</Typography>
-                          <Typography fontSize={13} color="#888">{data.subject}</Typography>
-                        </>}
-                        secondary={<Typography fontSize={12} color="#b0b3b9">{new Date(data.sentAt).toLocaleString('tr-TR')}</Typography>}
-                      />
-                    </ListItem>
+                    <React.Fragment key={email._id}>
+                      <ListItem alignItems="flex-start">
+                        <ListItemText
+                          primary={email.email}
+                          secondary={
+                            <Box component="span" sx={{ display: 'flex', alignItems: 'center', mt: 0.5 }}>
+                              <Chip
+                                label={email.status === "sent" ? 'Sent' : email.processing === true ? 'Sending...' : 'Failed'}
+                                color={email.status === 'sent' ? 'success' : email.processing === true ? 'warning' : 'error'}
+                                size="small"
+                                sx={{
+                                  fontWeight: 600,
+                                  mr: 1,
+                                  color: '#fff',
+                                  bgcolor: email.status === 'sended' ? '#00C49F' : email.status === 'processing' ? '#FFBB28' : '#FF8042'
+                                }}
+                              />
+                              <Typography variant="body2" color="#888">
+                                {new Date(email.sentAt).toLocaleString()}
+                              </Typography>
+                            </Box>
+                          }
+                          primaryTypographyProps={{ fontWeight: 600, color: '#444' }}
+                        />
+                        <Typography variant="body2" color="#666">{email.subject}</Typography>
+                      </ListItem>
+                      {index < recentEmails.length - 1 && <Divider />}
+                    </React.Fragment>
                   )
                 })}
               </List>
@@ -273,12 +289,12 @@ export default function Dashboard() {
           <Paper elevation={1} sx={{ borderRadius: 3, p: 3, mb: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <BarChartIcon color="primary" sx={{ mr: 1 }} />
-              <Typography fontWeight={700} fontSize={17} color="#1976d2">Top Companies</Typography>
+              <Typography fontWeight={700} fontSize={17} color="#1976d2">Top Companies by Email Domain</Typography>
             </Box>
             {loading ? (
               <Skeleton variant="rectangular" width="100%" height={60} />
             ) : topCompanies.length === 0 ? (
-              <Typography color="#b0b3b9">Şirket verisi bulunamadı.</Typography>
+              <Typography color="#b0b3b9">No company data found.</Typography>
             ) : (
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart data={topCompanies} layout="vertical" margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
@@ -294,12 +310,12 @@ export default function Dashboard() {
           <Paper elevation={1} sx={{ borderRadius: 3, p: 3, mb: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <BarChartIcon color="primary" sx={{ mr: 1 }} />
-              <Typography fontWeight={700} fontSize={17} color="#1976d2">Verimlilik Zaman Grafiği</Typography>
+              <Typography fontWeight={700} fontSize={17} color="#1976d2">Email sending efficiency</Typography>
             </Box>
             {loading ? (
               <Skeleton variant="rectangular" width="100%" height={180} />
             ) : barData.length === 0 ? (
-              <Typography color="#b0b3b9">Veri bulunamadı.</Typography>
+              <Typography color="#b0b3b9">No data found.</Typography>
             ) : (
               <ResponsiveContainer width="100%" height={180}>
                 <AreaChart data={barData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -315,56 +331,29 @@ export default function Dashboard() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
                   <XAxis dataKey="date" fontSize={13} tickLine={false} axisLine={false} />
-                  <YAxis fontSize={13} tickLine={false} axisLine={false} />
-                  <ReTooltip contentStyle={{ borderRadius: 8, fontSize: 13 }} />
-                  <Area type="monotone" dataKey="sent" stroke="#1976d2" fillOpacity={1} fill="url(#colorSent)" name="Gönderilen" dot={{ r: 3 }} />
-                  <Area type="monotone" dataKey="notSent" stroke="#FF8042" fillOpacity={1} fill="url(#colorNotSent)" name="Gönderilemeyen" dot={{ r: 3 }} />
+                  <YAxis tick={{ fill: '#888', fontSize: 12 }} />
+                  <ReTooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      border: '1px solid #ddd',
+                      borderRadius: '8px',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                    }}
+                  />
+                  <Legend wrapperStyle={{ fontSize: '14px' }} />
+                  <Area type="monotone" dataKey="sent" stroke="#1976d2" fillOpacity={1} fill="url(#colorSent)" name="Sent" dot={{ r: 3 }} />
+                  <Area type="monotone" dataKey="notSent" stroke="#FF8042" fillOpacity={1} fill="url(#colorNotSent)" name="Not Sent" dot={{ r: 3 }} />
                 </AreaChart>
               </ResponsiveContainer>
             )}
           </Paper>
           {/* Main Charts Row */}
           <Grid container sx={{ flexDirection: "column" }} spacing={2} mb={2}>
-            <Grid item xs={12} flex={1} sx={
-              {
-                flexDirection: "column"
-              }
-            } md={8}>
-              <Paper elevation={0} sx={{ p: 3, borderRadius: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)', height: 340, minHeight: 300 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                  <Typography fontWeight={600} fontSize={16} color="#222">Sales Overview</Typography>
-                  <Chip onClick={() => { }} label="Last 7 days" size="small" sx={{ bgcolor: '#f0f1f3', color: '#1976d2', fontWeight: 500 }} />
-                </Box>
-                {loading ? (
-                  <Skeleton variant="rectangular" width="100%" height={260} sx={{ borderRadius: 2 }} />
-                ) : (
-                  <ResponsiveContainer width="100%" height={260}>
-                    <AreaChart data={barData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="colorSent" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#1976d2" stopOpacity={0.7} />
-                          <stop offset="95%" stopColor="#1976d2" stopOpacity={0.05} />
-                        </linearGradient>
-                        <linearGradient id="colorNotSent" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#FF8042" stopOpacity={0.7} />
-                          <stop offset="95%" stopColor="#FF8042" stopOpacity={0.05} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="date" fontSize={13} tickLine={false} axisLine={false} />
-                      <YAxis fontSize={13} tickLine={false} axisLine={false} />
-                      <ReTooltip contentStyle={{ borderRadius: 8, fontSize: 13 }} />
-                      <Area type="monotone" dataKey="sent" stroke="#1976d2" fillOpacity={1} fill="url(#colorSent)" name="Sent" dot={{ r: 3 }} />
-                      <Area type="monotone" dataKey="notSent" stroke="#FF8042" fillOpacity={1} fill="url(#colorNotSent)" name="Not Sent" dot={{ r: 3 }} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                )}
-              </Paper>
-            </Grid>
+          
             <Grid container spacing={2} mb={2}>
               <Grid item xs={12} flex={1} md={4}>
                 <Paper elevation={0} sx={{ p: 3, borderRadius: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)', height: 340, minHeight: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography fontWeight={600} fontSize={16} color="#222" mb={1}>Total Subscriber</Typography>
+                  <Typography fontWeight={600} fontSize={16} color="#222" mb={1}>Email Sending by Day</Typography>
                   {loading ? (
                     <Skeleton variant="rectangular" width="100%" height={220} sx={{ borderRadius: 2 }} />
                   ) : (
@@ -372,8 +361,15 @@ export default function Dashboard() {
                       <BarChart data={barData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} />
                         <XAxis dataKey="date" fontSize={13} tickLine={false} axisLine={false} />
-                        <YAxis fontSize={13} tickLine={false} axisLine={false} />
-                        <ReTooltip contentStyle={{ borderRadius: 8, fontSize: 13 }} />
+                        <YAxis tick={{ fill: '#888', fontSize: 12 }} />
+                        <ReTooltip
+                          contentStyle={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            border: '1px solid #ddd',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                          }}
+                        />
                         <Bar dataKey="sent" fill="#1976d2" name="Sent" radius={[6, 6, 0, 0]} barSize={24} />
                         <Bar dataKey="notSent" fill="#FF8042" name="Not Sent" radius={[6, 6, 0, 0]} barSize={24} />
                       </BarChart>
@@ -383,7 +379,7 @@ export default function Dashboard() {
               </Grid>
               <Grid item flex={1} maxWidth={500}>
                 <Paper elevation={0} sx={{ p: 3, borderRadius: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.04)', height: 340, minHeight: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography fontWeight={600} fontSize={16} color="#222" mb={1}>Sales Distribution</Typography>
+                  <Typography fontWeight={600} fontSize={16} color="#222" mb={1}>Email Distribution by Country</Typography>
                   {loading ? (
                     <Skeleton variant="circular" width={160} height={160} sx={{ borderRadius: '50%' }} />
                   ) : (

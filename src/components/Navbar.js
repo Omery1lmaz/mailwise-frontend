@@ -4,11 +4,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import UpdatesPopover from './UpdatesPopover';
 
 const SIDEBAR_WIDTH = 220;
 
 export default function Navbar({ onLogout }) {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [updatesAnchor, setUpdatesAnchor] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleMenuOpen = (event) => {
@@ -20,6 +23,14 @@ export default function Navbar({ onLogout }) {
     const handleLogout = () => {
         handleMenuClose();
         if (onLogout) onLogout();
+    };
+
+    const handleUpdatesClick = (event) => {
+        setUpdatesAnchor(event.currentTarget);
+    };
+
+    const handleUpdatesClose = () => {
+        setUpdatesAnchor(null);
     };
 
     return (
@@ -39,6 +50,11 @@ export default function Navbar({ onLogout }) {
         }}>
             {/* Right side: notification + user/company */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <IconButton size="small" sx={{ color: '#b0b3b9' }} onClick={handleUpdatesClick}>
+                    <Badge color="error" variant="dot" overlap="circular">
+                        <CardGiftcardIcon fontSize="medium" />
+                    </Badge>
+                </IconButton>
                 <IconButton size="small" sx={{ color: '#b0b3b9' }}>
                     <Badge color="error" variant="dot" overlap="circular">
                         <NotificationsNoneOutlinedIcon fontSize="medium" />
@@ -50,7 +66,7 @@ export default function Navbar({ onLogout }) {
                 >
                     <AccountCircleIcon sx={{ width: 32, height: 32, mr: 1, color: '#1976d2' }} />
                     <Box sx={{ mr: 1 }}>
-                        <Typography fontWeight={700} fontSize={15} color="#222">Ömer Faruk</Typography>
+                        <Typography fontWeight={700} fontSize={15} color="#222">Admin</Typography>
                         <Typography fontSize={12} color="#FFBB28" fontWeight={700}>admin</Typography>
                     </Box>
                     <ArrowDropDownIcon sx={{ color: '#b0b3b9' }} />
@@ -66,6 +82,11 @@ export default function Navbar({ onLogout }) {
                     <MenuItem onClick={handleLogout} sx={{ color: '#d32f2f', fontWeight: 700 }}>Logout</MenuItem>
                 </Menu>
             </Box>
+            <UpdatesPopover
+                anchorEl={updatesAnchor}
+                open={Boolean(updatesAnchor)}
+                onClose={handleUpdatesClose}
+            />
         </Box>
     );
 } 

@@ -22,7 +22,7 @@ export default function BatchSend({ token }) {
             setSuccess(res.data.message);
             setBatchStatus(res.data.status);
             
-            // 3 saniye sonra success mesajını temizle
+            // clear success message after 3 seconds
             setTimeout(() => {
                 setSuccess('');
                 setBatchStatus('');
@@ -30,7 +30,7 @@ export default function BatchSend({ token }) {
             
         } catch (err) {
             console.error('Batch send error:', err);
-            setError(err.response?.data?.error || 'Batch başlatılamadı! Lütfen tekrar deneyin.');
+            setError(err.response?.data?.error || 'Batch could not be started! Please try again.');
         }
         
         setLoading(false);
@@ -45,11 +45,11 @@ export default function BatchSend({ token }) {
                     </Avatar>
                     
                     <Typography variant="h5" fontWeight={700} mb={1} color="#222">
-                        Batch Email Gönderimi
+                        Batch Email Sending
                     </Typography>
                     
                     <Typography variant="body1" color="#888" mb={3} align="center">
-                        Bir tıkla 80 email gönderimini başlat. Bu işlem arka planda gerçekleşir ve ilerleme durumu dashboardda güncellenir.
+                        Start sending 80 emails with one click. This process runs in the background and its progress is updated on the dashboard.
                     </Typography>
 
                     <Stack direction="row" spacing={2} alignItems="center" mb={3}>
@@ -82,14 +82,14 @@ export default function BatchSend({ token }) {
                             py: 1.5
                         }}
                     >
-                        {loading ? 'Başlatılıyor...' : '80 Email Gönderimini Başlat'}
+                        {loading ? 'Starting...' : 'Start Sending 80 Emails'}
                     </Button>
 
                     {loading && (
                         <Box sx={{ width: '100%', mt: 3 }}>
                             <LinearProgress />
                             <Typography variant="body2" color="#888" mt={1} textAlign="center">
-                                Worker thread başlatılıyor...
+                                Worker thread is starting...
                             </Typography>
                         </Box>
                     )}
@@ -105,7 +105,7 @@ export default function BatchSend({ token }) {
                             </Typography>
                             {batchStatus && (
                                 <Typography variant="body2" color="inherit">
-                                    Durum: {batchStatus}
+                                    Status: {batchStatus}
                                 </Typography>
                             )}
                         </Alert>
@@ -125,8 +125,8 @@ export default function BatchSend({ token }) {
 
                     <Box sx={{ mt: 4, p: 2, bgcolor: '#f5f5f5', borderRadius: 2, width: '100%' }}>
                         <Typography variant="body2" color="#666" textAlign="center">
-                            💡 İpucu: Email gönderimi arka planda devam eder. 
-                            İlerleme durumunu Dashboard sayfasından takip edebilirsiniz.
+                            💡 Tip: Email sending continues in the background. 
+                            You can track the progress on the Dashboard page.
                         </Typography>
                     </Box>
                 </Paper>

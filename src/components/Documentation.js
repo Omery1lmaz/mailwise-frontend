@@ -17,19 +17,19 @@ export default function Documentation() {
             <Container maxWidth="md">
                 <Paper elevation={1} sx={{ p: 4, borderRadius: 3 }}>
                     <Typography variant="h4" gutterBottom fontWeight={700} color="#1976d2" textAlign="center">
-                        📄 Mailwise Proje Dokümantasyonu
+                        📄 Mailwise Project Documentation
                     </Typography>
 
                     <Box sx={{ mt: 4 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <PersonIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>🧑‍💻 Kimim Ben?</Typography>
+                            <Typography variant="h5" fontWeight={600}>🧑‍💻 Who Am I?</Typography>
                         </Box>
                         <Typography paragraph>
-                            Ben Ömer Faruk Yılmaz, 20 yaşındayım ve ortaokuldan bu yana yazılım alanında kendimi geliştiriyorum. 
-                            React, React Native, Node.js gibi modern teknolojilerle uygulamalar geliştiriyor, profesyonel alanda 
-                            sürekli ilerlemeye çalışıyorum. Halihazırda bir startup'ta frontend developer olarak görev alıyor ve 
-                            aynı zamanda bireysel projelerimle üretmeye devam ediyorum.
+                            I am Ömer Faruk Yılmaz, 20 years old, and I have been developing myself in the software field since middle school.
+                            I develop applications with modern technologies like React, React Native, and Node.js, and I constantly strive to
+                            progress in the professional field. I am currently working as a frontend developer at a startup and
+                            continue to create with my individual projects.
                         </Typography>
                     </Box>
 
@@ -38,26 +38,26 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <LightbulbIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>💡 Bu Projeyi Neden Yaptım?</Typography>
+                            <Typography variant="h5" fontWeight={600}>💡 Why Did I Make This Project?</Typography>
                         </Box>
                         <Typography paragraph>
-                            Mailwise'ı geliştirmemdeki temel amaç, yazılım kariyerimi daha fazla şirkete tanıtmak ve klasik iş 
-                            başvurusu sürecini daha etkili bir hale getirmekti.
+                            The main purpose of developing Mailwise was to introduce my software career to more companies and to make the
+                            classic job application process more effective.
                         </Typography>
                         <Typography paragraph>
-                            Türkiye'de yazılım alanındaki işe alım süreçleri genellikle pasif ve ilan odaklı ilerliyor. 
-                            Bu sistemle ben bu durumu tersine çeviriyorum:
+                            In Turkey, the recruitment processes in the software field are generally passive and ad-oriented.
+                            With this system, I am reversing this situation:
                         </Typography>
                         <ul>
                             <li>
                                 <Typography>
-                                    Sadece açık ilanlara değil, potansiyel olarak yazılımcı arayabilecek şirketlere de ulaşmak istiyorum.
+                                    I want to reach not only the companies with open positions but also those that may potentially be looking for developers.
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Her şirketin kariyer sayfasını tek tek gezmek yerine, kişiselleştirilmiş toplu e-postalarla 
-                                    doğrudan ilgili kişilere ulaşıyorum.
+                                    Instead of visiting each company's career page one by one, I reach the relevant people directly
+                                    with personalized bulk emails.
                                 </Typography>
                             </li>
                         </ul>
@@ -68,20 +68,20 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <DatasetIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>📬 Verileri Nereden Buluyorum?</Typography>
+                            <Typography variant="h5" fontWeight={600}>📬 Where Do I Find the Data?</Typography>
                         </Box>
                         <Typography paragraph>
-                            Sistemde kullanılan tüm iletişim bilgileri ve şirket verileri, apollo.io üzerinden alınmaktadır. 
-                            Bu platform sayesinde:
+                            All contact information and company data used in the system are obtained from apollo.io.
+                            Thanks to this platform:
                         </Typography>
                         <ul>
-                            <li><Typography>Yetkili kişilerin adı, soyadı, e-posta adresi ve unvanı</Typography></li>
-                            <li><Typography>Şirket adı, adresi, sektörü ve web sitesi</Typography></li>
-                            <li><Typography>Kişisel ve kurumsal LinkedIn bağlantıları</Typography></li>
+                            <li><Typography>Name, surname, e-mail address, and title of the authorized persons</Typography></li>
+                            <li><Typography>Company name, address, industry, and website</Typography></li>
+                            <li><Typography>Personal and corporate LinkedIn connections</Typography></li>
                         </ul>
                         <Typography paragraph color="text.secondary" sx={{ mt: 2 }}>
-                            📌 Not: Tüm veriler herkese açık kaynaklardan toplanmakta ve yalnızca profesyonel iletişim amacıyla 
-                            kullanılmaktadır. Hiçbir şekilde ticari reklam, spam ya da kişisel veri ihlali amacı taşımamaktadır.
+                            📌 Note: All data is collected from publicly available sources and is used for professional communication purposes only.
+                            It does not have any commercial advertising, spam, or personal data violation purposes.
                         </Typography>
                     </Box>
 
@@ -90,28 +90,28 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <SystemUpdateAltIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>✉️ Sistem Nasıl Çalışıyor?</Typography>
+                            <Typography variant="h5" fontWeight={600}>✉️ How Does the System Work?</Typography>
                         </Box>
-                        <Typography paragraph>Mailwise sistemi aşağıdaki adımlarla çalışmaktadır:</Typography>
+                        <Typography paragraph>The Mailwise system works with the following steps:</Typography>
                         <ol>
                             <li>
                                 <Typography>
-                                    Apollo.io üzerinden alınan kişi ve şirket bilgileri veritabanına kaydedilir.
+                                    Personal and company information obtained from Apollo.io is saved to the database.
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Her kişi için özel olarak dinamik e-posta şablonları oluşturulur (isim, şirket, pozisyon vs. bilgileri eklenir).
+                                    Dynamic e-mail templates are created for each person (name, company, position, etc. information is added).
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Kullanıcının belirlediği bir mail servisi (örn. Gmail, SMTP vb.) üzerinden bu e-postalar gönderilir.
+                                    These e-mails are sent via a mail service determined by the user (e.g., Gmail, SMTP, etc.).
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Gönderilen e-postaların durumu sistem panelinden anlık olarak takip edilebilir.
+                                    The status of the sent e-mails can be tracked instantly from the system panel.
                                 </Typography>
                             </li>
                         </ol>
@@ -122,16 +122,16 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <BarChartIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>📊 Hangi Bilgiler Görüntülenebilir?</Typography>
+                            <Typography variant="h5" fontWeight={600}>📊 What Information Can Be Viewed?</Typography>
                         </Box>
-                        <Typography paragraph>Dashboard üzerinden aşağıdaki bilgilere ulaşmak mümkündür:</Typography>
+                        <Typography paragraph>The following information can be accessed from the dashboard:</Typography>
                         <ul>
-                            <li><Typography>Gönderilen toplam e-posta sayısı</Typography></li>
-                            <li><Typography>Kaç kişiye gönderildi</Typography></li>
-                            <li><Typography>Gönderilen e-postaların durumu (Başarılı, Beklemede, Hata, Yanıtlandı)</Typography></li>
-                            <li><Typography>CV gönderim geçmişi</Typography></li>
-                            <li><Typography>Günlük bazda e-posta gönderim grafiği</Typography></li>
-                            <li><Typography>(Yakında) Mail açılma ve tıklanma oranları</Typography></li>
+                            <li><Typography>Total number of e-mails sent</Typography></li>
+                            <li><Typography>How many people were sent to</Typography></li>
+                            <li><Typography>Status of sent e-mails (Successful, Pending, Error, Replied)</Typography></li>
+                            <li><Typography>CV sending history</Typography></li>
+                            <li><Typography>Daily e-mail sending graph</Typography></li>
+                            <li><Typography>(Soon) Mail open and click rates</Typography></li>
                         </ul>
                     </Box>
 
@@ -140,27 +140,27 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <EmailIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>📨 E-posta Şablonları Nasıl Oluşturuluyor?</Typography>
+                            <Typography variant="h5" fontWeight={600}>📨 How Are E-mail Templates Created?</Typography>
                         </Box>
                         <ul>
                             <li>
                                 <Typography>
-                                    Şirket adı, alıcı adı, unvanı ve LinkedIn gibi bilgiler şablona otomatik eklenir.
+                                    Information such as company name, recipient name, title, and LinkedIn are automatically added to the template.
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Gövde kısmında başvuru sahibini tanıtan profesyonel bir metin bulunur.
+                                    The body part contains a professional text introducing the applicant.
                                 </Typography>
                             </li>
                             <li>
                                 <Typography>
-                                    Her mailin eki olarak başvuru sahibinin güncel CV'si PDF formatında gönderilir.
+                                    The applicant's current CV is sent as an attachment to each mail in PDF format.
                                 </Typography>
                             </li>
                         </ul>
                         <Typography paragraph>
-                            Bu süreçte kullanılan şablonlar esnek olup ileride özelleştirilebilir hale getirilecektir.
+                            The templates used in this process are flexible and will be made customizable in the future.
                         </Typography>
                     </Box>
 
@@ -169,14 +169,14 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <SecurityIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>🔐 Gizlilik Politikası & Etik Yaklaşım</Typography>
+                            <Typography variant="h5" fontWeight={600}>🔐 Privacy Policy & Ethical Approach</Typography>
                         </Box>
-                        <Typography paragraph>Bu sistem tamamen etik ve profesyonel sınırlar içinde geliştirilmiştir:</Typography>
+                        <Typography paragraph>This system has been developed entirely within ethical and professional limits:</Typography>
                         <ul>
-                            <li><Typography>Spam veya reklam içerikli toplu gönderim yoktur.</Typography></li>
-                            <li><Typography>Her e-posta, alıcıya özel olarak oluşturulur ve saygılı bir dil kullanılır.</Typography></li>
-                            <li><Typography>İstenirse opt-out yani iletişimden çıkma imkânı sağlanabilir (gelecek sürümde).</Typography></li>
-                            <li><Typography>Tüm veriler yalnızca bireysel başvuru süreci için kullanılır.</Typography></li>
+                            <li><Typography>There is no bulk sending of spam or advertising content.</Typography></li>
+                            <li><Typography>Each e-mail is created specifically for the recipient and a respectful language is used.</Typography></li>
+                            <li><Typography>If desired, an opt-out option can be provided (in a future version).</Typography></li>
+                            <li><Typography>All data is used only for the individual application process.</Typography></li>
                         </ul>
                     </Box>
 
@@ -185,19 +185,19 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <BuildIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>🛠️ Gelecek Planları</Typography>
+                            <Typography variant="h5" fontWeight={600}>🛠️ Future Plans</Typography>
                         </Box>
                         <Typography paragraph>
-                            Mailwise aktif olarak geliştirilen bir projedir ve aşağıdaki özellikler yakın zamanda eklenecektir:
+                            Mailwise is an actively developed project and the following features will be added soon:
                         </Typography>
                         <ul>
-                            <li><Typography>📈 Mail açılma / tıklanma analizi</Typography></li>
-                            <li><Typography>🔁 Otomatik follow-up e-postaları</Typography></li>
-                            <li><Typography>🔗 LinkedIn entegrasyonu ile otomatik bağlantı daveti gönderme</Typography></li>
-                            <li><Typography>📋 Kişisel panel ile hangi şirketlerin CV'yi görüntülediğini izleyebilme</Typography></li>
-                            <li><Typography>🧑‍💼 Kullanıcı girişi ile başka geliştiricilerin de sistemi kullanabilmesi</Typography></li>
-                            <li><Typography>📤 CSV yükleme ve dışa aktarma</Typography></li>
-                            <li><Typography>⚙️ SMTP & şablon ayarları</Typography></li>
+                            <li><Typography>📈 Mail open/click analysis</Typography></li>
+                            <li><Typography>🔁 Automatic follow-up e-mails</Typography></li>
+                            <li><Typography>🔗 Automatic connection request sending with LinkedIn integration</Typography></li>
+                            <li><Typography>📋 Ability to track which companies have viewed the CV with a personal panel</Typography></li>
+                            <li><Typography>🧑‍💼 Ability for other developers to use the system with user login</Typography></li>
+                            <li><Typography>📤 CSV import and export</Typography></li>
+                            <li><Typography>⚙️ SMTP & template settings</Typography></li>
                         </ul>
                     </Box>
 
@@ -206,15 +206,15 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <InfoIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>🧾 Ek Bilgiler</Typography>
+                            <Typography variant="h5" fontWeight={600}>🧾 Additional Information</Typography>
                         </Box>
                         <ul>
                             <li><Typography>Frontend: React, Material UI, Recharts</Typography></li>
                             <li><Typography>Backend: Node.js, Express.js, MongoDB</Typography></li>
-                            <li><Typography>Mail Servisi: Nodemailer</Typography></li>
-                            <li><Typography>Veri Kaynağı: Apollo.io</Typography></li>
-                            <li><Typography>Kimlik Doğrulama: JWT</Typography></li>
-                            <li><Typography>Arka Plan İşlem: Worker Threads</Typography></li>
+                            <li><Typography>Mail Service: Nodemailer</Typography></li>
+                            <li><Typography>Data Source: Apollo.io</Typography></li>
+                            <li><Typography>Authentication: JWT</Typography></li>
+                            <li><Typography>Background Process: Worker Threads</Typography></li>
                         </ul>
                     </Box>
 
@@ -223,11 +223,11 @@ export default function Documentation() {
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <ContactMailIcon sx={{ mr: 1, color: '#1976d2' }} />
-                            <Typography variant="h5" fontWeight={600}>📬 İletişim</Typography>
+                            <Typography variant="h5" fontWeight={600}>📬 Contact</Typography>
                         </Box>
-                        <Typography><strong>Proje Geliştiricisi:</strong> Ömer Faruk Yılmaz</Typography>
-                        <Typography><strong>📧 E-posta:</strong> omer@omerfarukyilmaz.dev</Typography>
-                        <Typography><strong>🌐 Kişisel Web:</strong> omerfarukyilmaz.dev</Typography>
+                        <Typography><strong>Project Developer:</strong> Ömer Faruk Yılmaz</Typography>
+                        <Typography><strong>📧 E-mail:</strong> omer@omerfarukyilmaz.dev</Typography>
+                        <Typography><strong>🌐 Personal Website:</strong> omerfarukyilmaz.dev</Typography>
                     </Box>
                 </Paper>
             </Container>

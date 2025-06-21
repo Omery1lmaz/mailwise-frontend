@@ -26,7 +26,7 @@ export default function Login({ onLogin }) {
       if (onLogin) onLogin(res.data.token, 'user');
       navigate('/dashboard');
     } catch (err) {
-      setError('Giriş başarısız!');
+      setError('Login failed!');
     }
     setLoading(false);
   };
@@ -39,10 +39,10 @@ export default function Login({ onLogin }) {
             <LockOutlinedIcon sx={{ fontSize: 36 }} />
           </Avatar>
           <Typography variant="h4" fontWeight={700} color="#1976d2" mb={1} align="center">
-            Mailwise Giriş
+            Mailwise Login
           </Typography>
           <Typography variant="body1" color="#888" mb={3} align="center">
-            Kişisel panelinize erişmek için giriş yapın.
+            Log in to access your personal dashboard.
           </Typography>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <TextField
@@ -62,7 +62,7 @@ export default function Login({ onLogin }) {
               }}
             />
             <TextField
-              label="Şifre"
+              label="Password"
               type={showPassword ? 'text' : 'password'}
               fullWidth
               margin="normal"
@@ -89,13 +89,13 @@ export default function Login({ onLogin }) {
               disabled={loading}
               startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
             >
-              {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
+              {loading ? 'Logging in...' : 'Login'}
             </Button>
           </form>
         </Paper>
         <Box sx={{ mt: 4, textAlign: 'center', color: '#b0b3b9', fontSize: 14 }}>
           <Typography variant="body2" color="#b0b3b9">
-            © {new Date().getFullYear()} Mailwise. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} Mailwise. All rights reserved.
           </Typography>
         </Box>
       </Container>

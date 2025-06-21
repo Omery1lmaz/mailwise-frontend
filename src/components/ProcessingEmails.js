@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { getProcessingEmails } from '../api/api';
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, Typography, Box, InputBase, Chip, Avatar, Stack, LinearProgress
@@ -37,13 +37,14 @@ export default function ProcessingEmails({ token }) {
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
-            const res = await getProcessingEmails(page + 1, rowsPerPage);
+            const filters = { search };
+            const res = await getProcessingEmails(page + 1, rowsPerPage, filters);
             setEmails(res.data.emails);
             setTotal(res.data.total);
             setLoading(false);
         }
         fetchData();
-    }, [token, page, rowsPerPage]);
+    }, [token, page, rowsPerPage, search]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -54,12 +55,7 @@ export default function ProcessingEmails({ token }) {
         setPage(0);
     };
 
-    const filteredEmails = emails.filter(row =>
-        row.email?.toLowerCase().includes(search.toLowerCase()) ||
-        row.firstName?.toLowerCase().includes(search.toLowerCase()) ||
-        row.lastName?.toLowerCase().includes(search.toLowerCase()) ||
-        row.company?.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredEmails = useMemo(() => emails, [emails]);
 
     return (
         <Box sx={{ bgcolor: '#f7f8fa', minHeight: '100vh', py: 4 }}>
@@ -70,18 +66,18 @@ export default function ProcessingEmails({ token }) {
                 <Paper elevation={1} sx={{ display: 'flex', alignItems: 'center', gap: 4, p: 2, mb: 3, borderRadius: 3, bgcolor: '#fff', boxShadow: '0 1px 4px 0 rgba(30,34,40,0.04)' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <GroupIcon color="primary" />
-                        <Typography fontWeight={600} fontSize={15} color="#1976d2">Toplam:</Typography>
+                        <Typography fontWeight={600} fontSize={15} color="#1976d2">Total:</Typography>
                         <Typography fontWeight={700} fontSize={18} color="#222">{total}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <AccessTimeIcon color="warning" />
-                        <Typography fontWeight={600} fontSize={15} color="#FFBB28">Ortalama Süre:</Typography>
-                        <Typography fontWeight={700} fontSize={18} color="#222">{AVG_SEND_SEC} sn</Typography>
+                        <Typography fontWeight={600} fontSize={15} color="#FFBB28">Average Time:</Typography>
+                        <Typography fontWeight={700} fontSize={18} color="#222">{AVG_SEND_SEC} sec</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <AccessTimeIcon color="success" />
-                        <Typography fontWeight={600} fontSize={15} color="#00C49F">Tahmini Bitiş:</Typography>
-                        <Typography fontWeight={700} fontSize={18} color="#222">{estimatedFinish.toLocaleTimeString('tr-TR')}</Typography>
+                        <Typography fontWeight={600} fontSize={15} color="#00C49F">Estimated Completion:</Typography>
+                        <Typography fontWeight={700} fontSize={18} color="#222">{estimatedFinish.toLocaleTimeString('en-US')}</Typography>
                     </Box>
                 </Paper>
                 {/* Search Bar */}
@@ -104,8 +100,7 @@ export default function ProcessingEmails({ token }) {
                                     <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>First Name</TableCell>
                                     <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>Last Name</TableCell>
                                     <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>Company</TableCell>
-                                    <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>isSend</TableCell>
-                                    <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>isProcessing</TableCell>
+                                    <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>Status</TableCell>
                                     <TableCell sx={{ fontWeight: 700, color: '#222', fontSize: 15, py: 2 }}>Created At</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -133,20 +128,12 @@ export default function ProcessingEmails({ token }) {
                                             <TableCell sx={{ py: 1.5 }}>{row.firstName}</TableCell>
                                             <TableCell sx={{ py: 1.5 }}>{row.lastName}</TableCell>
                                             <TableCell sx={{ py: 1.5 }}>{row.company}</TableCell>
-                                            <TableCell sx={{ py: 1.5 }} onClick={() => { }}>
-                                                <Chip
-                                                    onClick={() => { }}
-                                                    label={row.isSend ? 'Sent' : 'Not Sent'}
-                                                    size="small"
-                                                    sx={{ bgcolor: row.isSend ? '#e6f4ea' : '#fff4e6', color: row.isSend ? '#00C49F' : '#FF8042', fontWeight: 700 }}
-                                                />
-                                            </TableCell>
                                             <TableCell sx={{ py: 1.5 }}>
                                                 <Chip
-                                                    onClick={() => { }}
-                                                    label={row.isProcessing ? 'Processing' : 'Idle'}
+                                                    label={row.isSend ? "Sent" : (row.status === 'error' ? "Error" : (row.isProcessing ? 'Processing' : 'Queued'))}
                                                     size="small"
-                                                    sx={{ bgcolor: row.isProcessing ? '#e3f2fd' : '#f5f6fa', color: row.isProcessing ? '#1976d2' : '#888', fontWeight: 700 }}
+                                                    color={row.isSend ? "success" : (row.status === 'error' ? "error" : (row.isProcessing ? 'warning' : 'primary'))}
+                                                    sx={{ fontWeight: 600 }}
                                                 />
                                             </TableCell>
                                             <TableCell sx={{ py: 1.5 }}>{dayjs(row.createdAt).format('DD.MM.YYYY HH:mm')}</TableCell>

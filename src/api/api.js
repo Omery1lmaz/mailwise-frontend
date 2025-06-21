@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // const API_URL = 'https://mailwise-server.onrender.com';
-// const API_URL = 'http://localhost:3000';
-const API_URL = 'https://mailwise-server-f9lj.vercel.app';
+const API_URL = 'http://localhost:3000';
+// const API_URL = 'https://mailwise-server-f9lj.vercel.app';
 
 
 const api = axios.create({
@@ -23,18 +23,39 @@ export const login = (email, password, role) =>
     ? api.post('/user/login', { email, password })
     : api.post('/admin/login', { email, password });
 
-export const getQueueEmails = (page = 1, limit = 20) =>
-  api.get(`/admin/queue-emails?page=${page}&limit=${limit}`);
+export const getQueueEmails = (page = 1, limit = 20, filters = {}) => {
+  const params = new URLSearchParams({ page, limit });
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      params.append(key, value);
+    }
+  });
+  return api.get(`/admin/queue-emails?${params.toString()}`);
+};
 
 export const getInbox = (page = 1, limit = 20) =>
   api.get(`/admin/inbox?page=${page}&limit=${limit}`);
 export const fetchInboxApi = () =>
   api.post('/admin/fetch-inbox');
-export const getProcessingEmails = (page = 1, limit = 20) =>
-  api.get(`/admin/processing-emails?page=${page}&limit=${limit}`);
+export const getProcessingEmails = (page = 1, limit = 20, filters = {}) => {
+    const params = new URLSearchParams({ page, limit });
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+            params.append(key, value);
+        }
+    });
+    return api.get(`/admin/processing-emails?${params.toString()}`);
+};
 
-export const getNotSendedEmails = (page = 1, limit = 20) =>
-  api.get(`/admin/not-sended-emails?page=${page}&limit=${limit}`);
+export const getNotSendedEmails = (page = 1, limit = 20, filters = {}) => {
+    const params = new URLSearchParams({ page, limit });
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+            params.append(key, value);
+        }
+    });
+    return api.get(`/admin/not-sended-emails?${params.toString()}`);
+};
 
 export const getEmailStatsByDate = (days = 7) =>
   api.get(`/admin/email-stats-by-date?days=${days}`);
@@ -58,6 +79,9 @@ export const getRecentEmails = () =>
 
 export const getTopCompanies = () =>
   api.get('/admin/top-companies');
+
+export const getCompanies = () =>
+  api.get('/admin/companies');
 
 export const sendQueueEmail = (id) =>
   api.post(`/queue/send/${id}`);
